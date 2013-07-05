@@ -18,7 +18,7 @@
  * \param tableColumn Column requesting refreshed Items
  * \param row Row requesting refreshed items
  */
--(void)tableView:(NSTableView *)aTableView
+-(id)tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
              row:(NSInteger)row;
 

@@ -10,10 +10,10 @@
 
 @implementation MEUMainController
 
--(void)tableView:(NSTableView *)aTableView
+-(id)tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
              row:(NSInteger)row {
-    
+    return NULL;
 }
 
 
