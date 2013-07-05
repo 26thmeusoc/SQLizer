@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'SQLizer' target in the 'SQLizer' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
