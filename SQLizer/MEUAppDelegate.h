@@ -3,7 +3,7 @@
 //  SQLizer
 //
 //  Created by Dirk on 05.07.13.
-//  Copyright (c) 2013 26thmeusoc. All rights reserved.
+//  Copyright (c) 2013 26thmeusoc.com. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
