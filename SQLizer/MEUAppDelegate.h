@@ -12,4 +12,11 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+/*!
+ * When main Window is closed, quit Application
+ * 
+ * \param sender Application to be closed
+ */
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
+
 @end
