@@ -50,8 +50,8 @@
 		4356E708178714620074BD41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4356E70A178714620074BD41 /* SQLizerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLizerTests.h; sourceTree = "<group>"; };
 		4356E70B178714620074BD41 /* SQLizerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQLizerTests.m; sourceTree = "<group>"; };
-		43F25AF817871A9C000618EE /* MEUMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEUMainController.h; sourceTree = "<group>"; };
-		43F25AF917871A9C000618EE /* MEUMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEUMainController.m; sourceTree = "<group>"; };
+		43F25AF817871A9C000618EE /* MEUMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEUMainController.h; path = ../MEUMainController.h; sourceTree = "<group>"; };
+		43F25AF917871A9C000618EE /* MEUMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MEUMainController.m; path = ../MEUMainController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,6 @@
 		4356E6D5178714610074BD41 = {
 			isa = PBXGroup;
 			children = (
-				43F25AF817871A9C000618EE /* MEUMainController.h */,
-				43F25AF917871A9C000618EE /* MEUMainController.m */,
 				4356E6E7178714610074BD41 /* SQLizer */,
 				4356E704178714620074BD41 /* SQLizerTests */,
 				4356E6E0178714610074BD41 /* Frameworks */,
@@ -119,6 +117,8 @@
 		4356E6E7178714610074BD41 /* SQLizer */ = {
 			isa = PBXGroup;
 			children = (
+				43F25AF817871A9C000618EE /* MEUMainController.h */,
+				43F25AF917871A9C000618EE /* MEUMainController.m */,
 				4356E6F3178714610074BD41 /* MEUAppDelegate.h */,
 				4356E6F4178714610074BD41 /* MEUAppDelegate.m */,
 				4356E6F6178714620074BD41 /* MainMenu.xib */,
@@ -205,7 +205,7 @@
 			attributes = {
 				CLASSPREFIX = MEU;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = 26thmeusoc.com;
+				ORGANIZATIONNAME = "Dirk \"26thmeusoc\" Braun";
 			};
 			buildConfigurationList = 4356E6D9178714610074BD41 /* Build configuration list for PBXProject "SQLizer" */;
 			compatibilityVersion = "Xcode 3.1";
