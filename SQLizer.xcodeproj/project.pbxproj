@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4306BD5A17885FED00C1351D /* MEUSQLAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306BD5917885FED00C1351D /* MEUSQLAccess.m */; };
+		4306BD5D1788C88600C1351D /* MEUSQLResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306BD5C1788C88600C1351D /* MEUSQLResultSet.m */; };
 		4356E6E2178714610074BD41 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4356E6E1178714610074BD41 /* Cocoa.framework */; };
 		4356E6EC178714610074BD41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4356E6EA178714610074BD41 /* InfoPlist.strings */; };
 		4356E6EE178714610074BD41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4356E6ED178714610074BD41 /* main.m */; };
@@ -31,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4306BD5817885FED00C1351D /* MEUSQLAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEUSQLAccess.h; path = SQLizer/MEUSQLAccess.h; sourceTree = "<group>"; };
+		4306BD5917885FED00C1351D /* MEUSQLAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MEUSQLAccess.m; path = SQLizer/MEUSQLAccess.m; sourceTree = "<group>"; };
+		4306BD5B1788C88500C1351D /* MEUSQLResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEUSQLResultSet.h; path = SQLizer/MEUSQLResultSet.h; sourceTree = "<group>"; };
+		4306BD5C1788C88600C1351D /* MEUSQLResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MEUSQLResultSet.m; path = SQLizer/MEUSQLResultSet.m; sourceTree = "<group>"; };
 		4356E6DE178714610074BD41 /* SQLizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4356E6E1178714610074BD41 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4356E6E4178714610074BD41 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -75,9 +81,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4306BD5417885FA200C1351D /* SQLSupport */ = {
+			isa = PBXGroup;
+			children = (
+				4306BD5817885FED00C1351D /* MEUSQLAccess.h */,
+				4306BD5917885FED00C1351D /* MEUSQLAccess.m */,
+				4306BD5B1788C88500C1351D /* MEUSQLResultSet.h */,
+				4306BD5C1788C88600C1351D /* MEUSQLResultSet.m */,
+			);
+			name = SQLSupport;
+			sourceTree = "<group>";
+		};
 		4356E6D5178714610074BD41 = {
 			isa = PBXGroup;
 			children = (
+				4306BD5417885FA200C1351D /* SQLSupport */,
 				4356E6E7178714610074BD41 /* SQLizer */,
 				4356E704178714620074BD41 /* SQLizerTests */,
 				4356E6E0178714610074BD41 /* Frameworks */,
@@ -270,6 +288,8 @@
 				4356E6EE178714610074BD41 /* main.m in Sources */,
 				4356E6F5178714610074BD41 /* MEUAppDelegate.m in Sources */,
 				43BCC3EB1787728C0042FEA3 /* MEUMainController.m in Sources */,
+				4306BD5A17885FED00C1351D /* MEUSQLAccess.m in Sources */,
+				4306BD5D1788C88600C1351D /* MEUSQLResultSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
