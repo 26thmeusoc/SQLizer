@@ -1,5 +1,5 @@
 /*
- MEUSQLResultSet.m
+ MEUSQLResultRow.h
  Copyright (C) 2013  Dirk "26thmeusoc" Braun
  
  This file is part of SQLizer.
@@ -18,22 +18,39 @@
  along with SQLizer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import "MEUSQLResultSet.h"
+#import <Foundation/Foundation.h>
 
-@implementation MEUSQLResultSet
--(id) initWithRows:(NSArray *)rows {
-    if ([super init]) {
-        return nil;
-    }
-    resultRows = rows;
-    return self;
+@interface MEUSQLResultRow : NSObject {
+    NSArray *columnsContent;
+    NSArray *columnTitles;
 }
 
-- (int)numberOfRows {
-    return 0;
-}
+/*!
+ * Creates a now MEUSQLResultRow Object with given columnTitles and Content.
+ *
+ * \param columnTitles
+ * \param columnContent;
+ * \return An initialized MEUSQLResultRow Object
+ */
+- (id)resultRowWithColumns:(NSArray *)columnTitles
+             columnContent:(NSArray *)columnContent;
 
-- (NSArray *)resultRows {
-    return NULL;
-}
+/*!
+ * Returns a list of all Columntitles of selected Rows.
+ *
+ * \return List of all Columntitles
+ */
+- (NSArray *)resultColumns;
+
+/*!
+ *
+ */
+- (NSArray *)resultHeader;
+
+/*!
+ * Returns number of Columns.
+ *
+ * \return Number of Columns
+ */
+- (int)numberOfColumns;
 @end

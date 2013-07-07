@@ -26,7 +26,8 @@
 }
 
 + (NSArray *) executeSQLiteSelectQueryOnDatabase:(NSString *)pathToDatabase
-                                       queryLine:(NSString *)selectQuery {
+                                       queryLine:(NSString *)selectQuery
+                                       withError:(NSError **)error {
     return NULL;
 }
 

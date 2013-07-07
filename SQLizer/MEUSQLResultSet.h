@@ -20,6 +20,25 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MEUSQLResultSet : NSObject
+@interface MEUSQLResultSet : NSObject {
+    /*!
+     * Array of MEUSQLResultRows.
+     */
+    NSArray *resultRows;
+}
 
+/*!
+ *
+ */
+-(id) initWithRows:(NSArray *)rows;
+
+/*!
+ *
+ */
+- (int)numberOfRows;
+
+/*!
+ *
+ */
+- (NSArray *)resultRows;
 @end

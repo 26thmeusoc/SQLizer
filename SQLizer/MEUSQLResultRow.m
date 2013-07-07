@@ -1,5 +1,5 @@
 /*
- MEUSQLResultSet.m
+ MEUSQLResultRow.h
  Copyright (C) 2013  Dirk "26thmeusoc" Braun
  
  This file is part of SQLizer.
@@ -18,22 +18,27 @@
  along with SQLizer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import "MEUSQLResultSet.h"
+#import "MEUSQLResultRow.h"
 
-@implementation MEUSQLResultSet
--(id) initWithRows:(NSArray *)rows {
+@implementation MEUSQLResultRow
+- (id)resultRowWithColumns:(NSArray *)columnTitles
+             columnContent:(NSArray *)columnContent {
     if ([super init]) {
         return nil;
     }
-    resultRows = rows;
+    
     return self;
 }
 
-- (int)numberOfRows {
-    return 0;
+- (NSArray *)resultColumns {
+    return NULL;
 }
 
-- (NSArray *)resultRows {
+- (NSArray *)resultHeader {
+    return NULL;
+}
+
+- (int)numberOfColumns {
     return NULL;
 }
 @end
