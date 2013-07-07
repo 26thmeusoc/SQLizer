@@ -23,7 +23,9 @@
 /*!
  * Used Access to a SQLite Database.
  */
-@interface MEUSQLAccess : NSObject
+@interface MEUSQLAccess : NSObject {
+    NSString *databasePath;
+}
 
 /*!
  * Execute a SQL Query.
@@ -31,22 +33,51 @@
  * \warning Do not use SQL SELECT Queries with in this method, as it won't return any Items.
  * \param pathToDatabase Database, where SQL Operation will be executed on
  * \param sqlQuery SQL Query to execute
+ * \param Pointer for NSError, which will return 
+ * \return True, if query was successfully executed
  */
-+ (void) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
-                            queryLine:(NSString *)sqlQuery;
++ (BOOL) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
+                            queryLine:(NSString *)sqlQuery
+                            withError:(NSError **)error;
 
 /*!
- * Execute a SQL Select Query. Returns a NSArray if Query could be executed.
- * On Error, this function returns null and sets error
+ * Execute a SQL Select Query. Returns a NSArray if Query could be executed, otherwise null and sets error
  *
  * \param pathToDatabase Database, where SQL Operation will be executed on
  * \param selectQuery Query to execute
- * \param error NSError Pointer
- * \return Rows returned by Query.
+ * \param error NSError Pointer, which will contain Informations in case Query could not be executed
+ * \return Rows returned by Query, null
  */
 + (NSArray *) executeSQLiteSelectQueryOnDatabase:(NSString *)pathToDatabase
                                       queryLine:(NSString *)selectQuery
                                        withError:(NSError **)error;
+
+/*!
+ * Initialises an MEUSSQLAccess Object with a given Path to Database
+ *
+ * \param pathToDatabase Path to a SQLite Database
+ */
+- (id)initWithDatabase:(NSString *)pathToDatabase;
+
+/*!
+ * Execute a SQL Query
+ *
+ * \warning Do not use SQL SELECT Queries with this method, as it won't return any Items
+ * \param sqlQuery
+ * \param error
+ */
+- (BOOL) executeSQLQuery:(NSString *)sqlQuery
+               withError:(NSError **)error;
+
+/*!
+ * Execute a SQL Select Query. Returns a NSArray if Query could be executed, otherwise null and sets error
+ * 
+ * \param selectQuery Query to execute
+ * \param error NSError Pointer, which will contarn Informations in case Query could not be executed
+ * \return Rows returned by Query, null
+ */
+- (NSArray *) executeSQLiteSelectQuery:(NSString *)selectQuery
+                             withError:(NSError **)error;
 
 /*!
  * Checks if Last Operation was Successful

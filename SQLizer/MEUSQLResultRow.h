@@ -32,7 +32,7 @@
  * \param columnContent;
  * \return An initialized MEUSQLResultRow Object
  */
-- (id)resultRowWithColumns:(NSArray *)columnTitles
+- (id) resultRowWithColumns:(NSArray *)columnTitles
              columnContent:(NSArray *)columnContent;
 
 /*!
@@ -40,17 +40,17 @@
  *
  * \return List of all Columntitles
  */
-- (NSArray *)resultColumns;
+- (NSArray *) resultColumns;
 
 /*!
  *
  */
-- (NSArray *)resultHeader;
+- (NSArray *) resultHeader;
 
 /*!
  * Returns number of Columns.
  *
  * \return Number of Columns
  */
-- (int)numberOfColumns;
+- (int) numberOfColumns;
 @end

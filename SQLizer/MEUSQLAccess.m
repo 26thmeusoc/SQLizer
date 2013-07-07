@@ -34,4 +34,13 @@
 - (BOOL) resultOfOperation {
     return TRUE;
 }
+
+- (id)initWithDatabase:(NSString *)pathToDatabase {
+    if (![super init]) {
+        return nil;
+    }
+    
+    databasePath = pathToDatabase;
+    return self;
+}
 @end

@@ -35,10 +35,10 @@
 /*!
  *
  */
-- (int)numberOfRows;
+- (int) numberOfRows;
 
 /*!
  *
  */
-- (NSArray *)resultRows;
+- (NSArray *) resultRows;
 @end
