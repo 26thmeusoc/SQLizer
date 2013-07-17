@@ -34,8 +34,11 @@
 -(id) tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
            row:(NSInteger)row {
-    NSString *result = [[[sqlRows objectAtIndex:row] contentsDictionary] valueForKey:[[tableColumn headerCell] stringValue]];
-    NSLog(@" Got %@", result);
+    NSString *result;
+    if ([sqlRows count] > 0) {
+        result = [[[sqlRows objectAtIndex:row] contentsDictionary] valueForKey:[[tableColumn headerCell] stringValue]];
+        NSLog(@" Got Content: %@", result);
+    }
     return result;
 }
 
@@ -100,11 +103,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     // How many columns are needed?
     // Get a list of all columns currently shown
     MEUSQLResultRow *exampleRow = [sqlRows objectAtIndex:0];
-    NSInteger columnNumber = [[sqlRows objectAtIndex:0] numberOfColumns];
+    NSInteger columnNumber = [exampleRow numberOfColumns];
     NSArray *columns = [[tableView tableColumns] copy];
     
     // Remove all columns now. We will rebuild this contents.
-    for (NSUInteger i=1; i < [columns count]; i++) {
+    for (NSUInteger i=0; i < [columns count]; i++) {
         NSLog(@" Currently showing colunmns: %@, removing them now", columns);
         [tableView removeTableColumn:[columns objectAtIndex:i]];
     }
@@ -118,9 +121,11 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     }
     
     // Delete first column
-    if ([[[tableView tableColumns] objectAtIndex:0] isEqual:[columns objectAtIndex:0]]) {
-        [tableView removeTableColumn:[columns objectAtIndex:0]];
+    if ([columns count] > 0) {
+            [tableView removeTableColumn:[columns objectAtIndex:0]];
     }
+    
+    // Refresh Contents now
     [tableView reloadData];
 }
 @end
