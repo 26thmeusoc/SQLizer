@@ -20,9 +20,10 @@
 #import "MEUSQLAccess.h"
 
 @implementation MEUSQLAccess
-+ (void) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
-                            queryLine:(NSString *)sqlQuery {
-    
++ (BOOL) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
+                            queryLine:(NSString *)sqlQuery
+                            withError:(NSError **)error {
+    return FALSE;
 }
 
 + (NSArray *) executeSQLiteSelectQueryOnDatabase:(NSString *)pathToDatabase
@@ -31,9 +32,6 @@
     return NULL;
 }
 
-- (BOOL) resultOfOperation {
-    return TRUE;
-}
 
 - (id)initWithDatabase:(NSString *)pathToDatabase {
     if (![super init]) {
@@ -43,4 +41,50 @@
     databasePath = pathToDatabase;
     return self;
 }
+
+- (BOOL) executeSQLQuery:(NSString *)sqlQuery
+               withError:(NSError **)error {
+    // Create a new Task
+    NSTask *task = [[NSTask alloc] init];
+    
+    // Prepare task to run
+    // Run sqlite3, until we use the libraries
+    [task setLaunchPath:@"/usr/bin/sqlite3"];
+    // Set Arguments
+    NSArray *debugArray = [NSArray arrayWithObjects:databasePath, sqlQuery, nil];
+    NSLog(@"Using Array: %@", debugArray);
+    [task setArguments:[NSArray arrayWithObjects:databasePath, sqlQuery, nil]];
+    // Run in ~/Library/Application\ Support
+    NSError *nerror;
+    NSString *appSupportDir = [[[[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror] path] stringByAppendingString:@"/SQLizer"];
+    [task setCurrentDirectoryPath:appSupportDir];
+    NSPipe *errPipe = [[NSPipe alloc] init];
+    [task setStandardError:errPipe];
+    
+    // Execute Task
+    [task launch];
+    
+    NSData *errData = [[errPipe fileHandleForReading] readDataToEndOfFile];
+//    // Wait until sqlite3 has finished the Task
+    [task waitUntilExit];
+
+    if ([task terminationStatus] != 0) {
+        NSString *errorMessage = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
+        NSLog(@"!! %@", errorMessage);
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Could not execute SQL Command"
+                        defaultButton:@"OK"
+                      alternateButton:NULL
+                          otherButton:NULL
+            informativeTextWithFormat:@"%@",errorMessage];
+        [alert runModal];
+    }
+    return [task terminationStatus] == 0;
+}
+
+- (NSArray *) executeSQLiteSelectQuery:(NSString *)selectQuery
+                             withError:(NSError **)error {
+    return NULL;
+}
+
+
 @end

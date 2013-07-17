@@ -39,6 +39,6 @@
 }
 
 - (int)numberOfColumns {
-    return NULL;
+    return 1;
 }
 @end

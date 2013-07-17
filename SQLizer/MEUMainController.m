@@ -32,4 +32,20 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 -(int)numberOfRowsInTableView:(NSTableView *)tableView {
     return 0;
 }
+
+-(IBAction)inputField:(id)sender {
+    NSError *nerror;
+    NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror];
+    NSString *pathToDatabase = [[appSupportDir path] stringByAppendingString:@"/SQLizer/SQLizer.db"];
+    NSLog(@"Using Database: %@", pathToDatabase);
+    MEUSQLAccess *sqlAccess = [[MEUSQLAccess alloc] initWithDatabase:pathToDatabase];
+    bool result = [sqlAccess executeSQLQuery:[textField stringValue] withError:&nerror];
+    
+    // Did everything work?
+    if (result == YES) {
+        NSLog(@"Executed: %@", [textField stringValue]);
+    } else {
+        NSLog(@"Could not execute");
+    }
+}
 @end

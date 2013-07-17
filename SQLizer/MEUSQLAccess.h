@@ -19,6 +19,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MEUSQLResultSet.h"
+#import "MEUSQLResultRow.h"
 
 /*!
  * Used Access to a SQLite Database.
@@ -34,7 +36,7 @@
  * \param pathToDatabase Database, where SQL Operation will be executed on
  * \param sqlQuery SQL Query to execute
  * \param Pointer for NSError, which will return 
- * \return True, if query was successfully executed
+ * \return YES, if query was successfully executed, otherwise the function sets error and returns NO
  */
 + (BOOL) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
                             queryLine:(NSString *)sqlQuery
@@ -65,6 +67,7 @@
  * \warning Do not use SQL SELECT Queries with this method, as it won't return any Items
  * \param sqlQuery
  * \param error
+ * \return YES, if query was successfully executed, otherwise the function sets error and returns NO
  */
 - (BOOL) executeSQLQuery:(NSString *)sqlQuery
                withError:(NSError **)error;
@@ -79,10 +82,4 @@
 - (NSArray *) executeSQLiteSelectQuery:(NSString *)selectQuery
                              withError:(NSError **)error;
 
-/*!
- * Checks if Last Operation was Successful
- *
- * \return TRUE if last Operation was executed successfully
- */
-- (BOOL) resultOfOperation;
 @end

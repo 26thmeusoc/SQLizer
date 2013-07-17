@@ -19,8 +19,11 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "MEUSQLAccess.h"
 
-@interface MEUMainController : NSObject
+@interface MEUMainController : NSObject {
+    IBOutlet NSTextField *textField;
+}
 /*!
  * Fill TableView with Objects.
  *
@@ -42,4 +45,9 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
  * \param tableView TableView requesting number of Lines
  */
 -(int)numberOfRowsInTableView:(NSTableView *)tableView;
+
+/*!
+ *
+ */
+-(IBAction)inputField:(id)sender;
 @end

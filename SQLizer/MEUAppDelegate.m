@@ -22,9 +22,21 @@
 
 @implementation MEUAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    // Our Folder in ~/Library/Applcation Support exists?
+    NSError *nerror;
+    NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathToFolder = [[appSupportDir path] stringByAppendingString:@"/SQLizer"];
+    NSLog(@"Checking for %@", pathToFolder);
+    BOOL isDir;
+    BOOL result = [fileManager fileExistsAtPath:pathToFolder isDirectory:&isDir];
+    if (result == FALSE ) {
+        NSLog(@"Application Supportfolder does not exist, creating one.");
+        NSError *error;
+        [fileManager createDirectoryAtPath:pathToFolder withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
