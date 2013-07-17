@@ -23,6 +23,7 @@
 @interface MEUSQLResultRow : NSObject {
     NSArray *columnsContent;
     NSArray *columnTitles;
+    NSDictionary *contents;
 }
 
 /*!
@@ -32,8 +33,7 @@
  * \param columnContent;
  * \return An initialized MEUSQLResultRow Object
  */
-- (id) resultRowWithColumns:(NSArray *)columnTitles
-             columnContent:(NSArray *)columnContent;
+- (id) resultRowWithRowBlock:(NSString *)rowBlock;
 
 /*!
  * Returns a list of all Columntitles of selected Rows.

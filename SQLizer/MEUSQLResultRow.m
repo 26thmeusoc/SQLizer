@@ -21,12 +21,40 @@
 #import "MEUSQLResultRow.h"
 
 @implementation MEUSQLResultRow
-- (id)resultRowWithColumns:(NSArray *)columnTitles
-             columnContent:(NSArray *)columnContent {
-    if ([super init]) {
+- (id) resultRowWithRowBlock:(NSString *)rowBlock {
+    NSLog(@"Row is: %@",rowBlock);
+    if (![super init]) {
         return nil;
     }
-    
+    NSMutableArray *contentRowBuffer = [[NSMutableArray alloc] init];
+    NSMutableArray *headerBuffer = [[NSMutableArray alloc] init];
+    NSArray *columnBuffer = [rowBlock componentsSeparatedByString:@"\n"];
+    NSLog(@"Current Row is: %@", columnBuffer);
+    NSArray *rContents = [[NSArray alloc] init];
+    NSMutableDictionary *contentsBuffer = [[NSMutableDictionary alloc] init];
+    for (NSUInteger i = 0; i < [columnBuffer count]; i++) {
+        NSString *row = [[columnBuffer objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSLog(@"Processing Row: %@", row);
+        if ([row compare:@""] != NSOrderedSame){
+            rContents = [row componentsSeparatedByString:@" = "];
+            [contentsBuffer setValue:[rContents objectAtIndex:1] forKey:[rContents objectAtIndex:0]];
+            [contentRowBuffer addObject:[rContents objectAtIndex:1]];
+            [headerBuffer addObject:[rContents objectAtIndex:0]];
+        }
+        
+    }
+    contents = [NSDictionary dictionaryWithDictionary:contentsBuffer];
+#if DEBUG
+    NSLog(@"Dict is: %@", contents);
+#endif
+    columnsContent = [NSArray arrayWithArray:contentRowBuffer];
+#if DEBUG
+    NSLog(@"\n Contents is: %@", columnsContent);
+#endif
+    columnTitles = [NSArray arrayWithArray:headerBuffer];
+#if DEBUG
+    NSLog(@"\n Header is: %@,", columnTitles);
+#endif
     return self;
 }
 

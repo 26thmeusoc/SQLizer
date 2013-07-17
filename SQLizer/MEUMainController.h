@@ -23,6 +23,7 @@
 
 @interface MEUMainController : NSObject {
     IBOutlet NSTextField *textField;
+    NSArray *sqlRows;
 }
 /*!
  * Fill TableView with Objects.
@@ -44,7 +45,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
  *
  * \param tableView TableView requesting number of Lines
  */
--(int)numberOfRowsInTableView:(NSTableView *)tableView;
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 
 /*!
  *

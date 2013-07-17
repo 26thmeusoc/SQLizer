@@ -22,15 +22,25 @@
 
 @implementation MEUMainController
 
--(id)tableView:(NSTableView *)aTableView
+- (id)init
+{
+    if (![super init]) {
+        return nil;
+    }
+    
+    sqlRows = [[NSArray alloc] init];
+    return self;
+}
+
+-(id) tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
-             row:(NSInteger)row {
+           row:(NSInteger)row {
     return NULL;
 }
 
 
--(int)numberOfRowsInTableView:(NSTableView *)tableView {
-    return 0;
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [sqlRows count];
 }
 
 -(IBAction)inputField:(id)sender {
@@ -39,13 +49,27 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     NSString *pathToDatabase = [[appSupportDir path] stringByAppendingString:@"/SQLizer/SQLizer.db"];
     NSLog(@"Using Database: %@", pathToDatabase);
     MEUSQLAccess *sqlAccess = [[MEUSQLAccess alloc] initWithDatabase:pathToDatabase];
-    bool result = [sqlAccess executeSQLQuery:[textField stringValue] withError:&nerror];
+    NSString *sqlCommand = [[textField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSArray *commandComponents = [sqlCommand componentsSeparatedByString:@" "];
+    if ([[commandComponents objectAtIndex:0] caseInsensitiveCompare:@"select"] == NSOrderedSame) {
+        NSLog(@"Select statement detected.");
+        NSArray *resultArray = [sqlAccess executeSQLiteSelectQuery:sqlCommand withError:&nerror];
+        if (resultArray != NULL) {
+            sqlRows = resultArray;
+        }
+    } else {
+        bool result = [sqlAccess executeSQLQuery:sqlCommand withError:&nerror];
+        if (!result) {
+            NSLog(@"Could not execute: %@", sqlCommand);
+        }
+#if DEBUG
+        else {
+            NSLog(@"Executed: %@", sqlCommand);
+        }
+#endif
+    }
     
     // Did everything work?
-    if (result == YES) {
-        NSLog(@"Executed: %@", [textField stringValue]);
-    } else {
-        NSLog(@"Could not execute");
-    }
+    
 }
 @end
