@@ -101,7 +101,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     // Get a list of all columns currently shown
     MEUSQLResultRow *exampleRow = [sqlRows objectAtIndex:0];
     NSInteger columnNumber = [[sqlRows objectAtIndex:0] numberOfColumns];
-    NSArray *columns = [tableView tableColumns];
+    NSArray *columns = [[tableView tableColumns] copy];
     
     // Remove all columns now. We will rebuild this contents.
     for (NSUInteger i=1; i < [columns count]; i++) {
