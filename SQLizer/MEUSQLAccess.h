@@ -23,7 +23,7 @@
 #import "MEUSQLResultRow.h"
 
 /*!
- * Used Access to a SQLite Database.
+ * Used to access a SQLite Database.
  */
 @interface MEUSQLAccess : NSObject {
     NSString *databasePath;
@@ -32,6 +32,8 @@
 /*!
  * Execute a SQL Query.
  * 
+ * \todo Needs implementation
+ *
  * \warning Do not use SQL SELECT Queries with in this method, as it won't return any Items.
  * \param pathToDatabase Database, where SQL Operation will be executed on
  * \param sqlQuery SQL Query to execute
@@ -44,6 +46,10 @@
 
 /*!
  * Execute a SQL Select Query. Returns a NSArray if Query could be executed, otherwise null and sets error
+ *
+ * \todo Needs implementation
+ *
+ * \warning Do not use SQL SELECT Queries with this method, as it won't return any Items
  *
  * \param pathToDatabase Database, where SQL Operation will be executed on
  * \param selectQuery Query to execute
@@ -58,6 +64,7 @@
  * Initialises an MEUSSQLAccess Object with a given Path to Database
  *
  * \param pathToDatabase Path to a SQLite Database
+ * \return Initalized MEUSQLAccess Object.
  */
 - (id)initWithDatabase:(NSString *)pathToDatabase;
 
@@ -77,7 +84,7 @@
  * 
  * \param selectQuery Query to execute
  * \param error NSError Pointer, which will contarn Informations in case Query could not be executed
- * \return Rows returned by Query, null
+ * \return Rows returned by Query otherwise null
  */
 - (NSArray *) executeSQLiteSelectQuery:(NSString *)selectQuery
                              withError:(NSError **)error;

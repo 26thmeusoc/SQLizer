@@ -22,31 +22,51 @@
 
 @implementation MEUSQLResultRow
 - (id) resultRowWithRowBlock:(NSString *)rowBlock {
+#if DEBUG
     NSLog(@"Row is: %@",rowBlock);
+#endif
+    // Run Superclass initialiser
     if (![super init]) {
         return nil;
     }
-    NSMutableArray *contentRowBuffer = [[NSMutableArray alloc] init];
-    NSMutableArray *headerBuffer = [[NSMutableArray alloc] init];
+    
+    // Create some buffers
+    NSMutableArray *contentRowBuffer = [[NSMutableArray alloc] init]; // Remember content for each column in this row
+    NSMutableArray *headerBuffer = [[NSMutableArray alloc] init]; // Remember Column Headers
+    // Create an array containing header and content of column
     NSArray *columnBuffer = [rowBlock componentsSeparatedByString:@"\n"];
-    NSLog(@"Current Row is: %@", columnBuffer);
+    // Buffer only contents of this row here
     NSArray *rContents = [[NSArray alloc] init];
+    // Prepare a Dictionarybuffer
     NSMutableDictionary *contentsBuffer = [[NSMutableDictionary alloc] init];
+    
+    // Go through every line in this block and prepare the objects
     for (NSUInteger i = 0; i < [columnBuffer count]; i++) {
+        // Remove trailing whitespaces
         NSString *row = [[columnBuffer objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+#if DEBUG
         NSLog(@"Processing Row: %@", row);
+#endif
+        // Make sure, we won't process an empty line.
         if ([row compare:@""] != NSOrderedSame){
+            // Separate line at equality sign
             rContents = [row componentsSeparatedByString:@" = "];
+            
+            // Add content to Dictionary
             [contentsBuffer setValue:[rContents objectAtIndex:1] forKey:[rContents objectAtIndex:0]];
+            // Add content to arrays
             [contentRowBuffer addObject:[rContents objectAtIndex:1]];
             [headerBuffer addObject:[rContents objectAtIndex:0]];
         }
         
     }
+    
+    // Save Dictionary
     contents = [NSDictionary dictionaryWithDictionary:contentsBuffer];
 #if DEBUG
     NSLog(@"Dict is: %@", contents);
 #endif
+    // Save Arrays
     columnsContent = [NSArray arrayWithArray:contentRowBuffer];
 #if DEBUG
     NSLog(@"\n Contents is: %@", columnsContent);
@@ -59,14 +79,20 @@
 }
 
 - (NSArray *)resultColumns {
-    return NULL;
+    // TODO implement me
+    return columnsContent;
 }
 
 - (NSArray *)resultHeader {
-    return NULL;
+    // TODO implement me
+    return columnTitles;
 }
 
-- (int)numberOfColumns {
-    return 1;
+- (NSUInteger)numberOfColumns {
+    return [columnTitles count];
+}
+
+- (NSDictionary *)contentsDictionary {
+    return contents;
 }
 @end

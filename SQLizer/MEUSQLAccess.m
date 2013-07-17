@@ -23,12 +23,14 @@
 + (BOOL) executeSQLiteQueryOnDatabase:(NSString *)pathToDatabase
                             queryLine:(NSString *)sqlQuery
                             withError:(NSError **)error {
+    // TODO Needs implementation
     return FALSE;
 }
 
 + (NSArray *) executeSQLiteSelectQueryOnDatabase:(NSString *)pathToDatabase
                                        queryLine:(NSString *)selectQuery
                                        withError:(NSError **)error {
+    // TODO Needs implementation
     return NULL;
 }
 
@@ -38,6 +40,7 @@
         return nil;
     }
     
+    // Set Path to Database
     databasePath = pathToDatabase;
     return self;
 }
@@ -52,23 +55,29 @@
     [task setLaunchPath:@"/usr/bin/sqlite3"];
     // Set Arguments
     NSArray *debugArray = [NSArray arrayWithObjects:databasePath, sqlQuery, nil];
+#if DEBUG
     NSLog(@"Using Array: %@", debugArray);
-    [task setArguments:[NSArray arrayWithObjects:databasePath, sqlQuery, nil]];
-    // Run in ~/Library/Application\ Support
+#endif
+    [task setArguments:debugArray];
+    // Run in ~/Library/Application\ Support/SQLizer
     NSError *nerror;
     NSString *appSupportDir = [[[[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror] path] stringByAppendingString:@"/SQLizer"];
     [task setCurrentDirectoryPath:appSupportDir];
+    
+    // We need to get output, in case an error happens
     NSPipe *errPipe = [[NSPipe alloc] init];
     [task setStandardError:errPipe];
     
     // Execute Task
     [task launch];
     
+    // Read Pipes when Operation is finished
     NSData *errData = [[errPipe fileHandleForReading] readDataToEndOfFile];
-//    // Wait until sqlite3 has finished the Task
+    // Wait until sqlite3 has finished the Task
     [task waitUntilExit];
 
     if ([task terminationStatus] != 0) {
+        // Something went wrong. Show an errormessage
         NSString *errorMessage = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
         NSLog(@"!! %@", errorMessage);
         NSAlert *alert = [NSAlert alertWithMessageText:@"Could not execute SQL Command"
@@ -77,6 +86,8 @@
                           otherButton:NULL
             informativeTextWithFormat:@"%@",errorMessage];
         [alert runModal];
+        
+        // TODO set NSError
     }
     return [task terminationStatus] == 0;
 }
@@ -90,25 +101,32 @@
     [task setLaunchPath:@"/usr/bin/sqlite3"];
     // Set Arguments
     NSArray *debugArray = [NSArray arrayWithObjects:@"-line", databasePath, selectQuery, nil];
+#if DEBUG
     NSLog(@"Using Array: %@", debugArray);
-    [task setArguments:[NSArray arrayWithObjects:@"-line", databasePath, selectQuery, nil]];
-    // Run in ~/Library/Application\ Support
+#endif
+    [task setArguments:debugArray];
+    // Run in ~/Library/Application\ Support/SQLizer
     NSError *nerror;
     NSString *appSupportDir = [[[[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror] path] stringByAppendingString:@"/SQLizer"];
     [task setCurrentDirectoryPath:appSupportDir];
+    
+    // We need to get output, in case an error happens
     NSPipe *errPipe = [[NSPipe alloc] init];
     [task setStandardError:errPipe];
     NSPipe *outPipe = [[NSPipe alloc] init];
     [task setStandardOutput:outPipe];
+    
     // Execute Task
     [task launch];
     
+    // Read Pipes when Operation is finished
     NSData *errData = [[errPipe fileHandleForReading] readDataToEndOfFile];
     NSData *outData = [[outPipe fileHandleForReading] readDataToEndOfFile];
     // Wait until sqlite3 has finished the Task
     [task waitUntilExit];
     
     if ([task terminationStatus] != 0) {
+        // Something went wrong. Show an errormessage
         NSString *errorMessage = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
         NSLog(@"!! %@", errorMessage);
         NSAlert *alert = [NSAlert alertWithMessageText:@"Could not execute SQL Command"
@@ -117,17 +135,28 @@
                                            otherButton:NULL
                              informativeTextWithFormat:@"%@",errorMessage];
         [alert runModal];
+        
+        // TODO set NSError
         return NULL;
     }
     return [self generateArrayOfRows:[[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding]];
 }
 
+/*!
+ * Generate an Array of MEUSQLResultrows from sqlite3 CLI-Tool Result. Result must be generated using -line option
+ *
+ * \param resultText Text returned by sqlite3
+ * \return Array of MEUSQLResultRow Objects, containing results in resultText
+ */
 - (NSArray *) generateArrayOfRows:(NSString *)resultText {
+    // Separate Database Lines
     NSArray *sqlResultRows = [resultText componentsSeparatedByString:@"\n\n"];
+    // Create a Buffer
     NSMutableArray *lineBuffer = [[NSMutableArray alloc] initWithCapacity:1];
 #if DEBUG
     NSLog(@"Got %lu rows",[sqlResultRows count]);
 #endif
+    // Create a MEUSQLResultRow Object for each row
     for (NSUInteger i = 0; i < [sqlResultRows count]; i++) {
         [lineBuffer addObject:[[MEUSQLResultRow alloc] resultRowWithRowBlock:[sqlResultRows objectAtIndex:i]]];
     }

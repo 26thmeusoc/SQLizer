@@ -23,6 +23,8 @@
 @interface MEUSQLResultSet : NSObject {
     /*!
      * Array of MEUSQLResultRows.
+     *
+     * \warning Functions are not implemented yet!
      */
     NSArray *resultRows;
 }

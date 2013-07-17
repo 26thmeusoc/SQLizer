@@ -22,8 +22,7 @@
 
 @implementation MEUMainController
 
-- (id)init
-{
+- (id)init {
     if (![super init]) {
         return nil;
     }
@@ -45,21 +44,42 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 
 -(IBAction)inputField:(id)sender {
     NSError *nerror;
+    
+    // Get Path to ~/Library/Appliction Support/
     NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror];
+    // Get Path to ~/Library/Application Support/SQLizer
+    // TODO Do this in one step
     NSString *pathToDatabase = [[appSupportDir path] stringByAppendingString:@"/SQLizer/SQLizer.db"];
+#if DEBUG
     NSLog(@"Using Database: %@", pathToDatabase);
+#endif
+    
+    // Prepare Databaseaccess
     MEUSQLAccess *sqlAccess = [[MEUSQLAccess alloc] initWithDatabase:pathToDatabase];
+    
+    // Get SQL Query
     NSString *sqlCommand = [[textField stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    // We need to check if a SELECT Query has been requested, so get first word in Query
     NSArray *commandComponents = [sqlCommand componentsSeparatedByString:@" "];
+    // SELECT Query?
     if ([[commandComponents objectAtIndex:0] caseInsensitiveCompare:@"select"] == NSOrderedSame) {
+        // Yes.
+#if DEBUG
         NSLog(@"Select statement detected.");
+#endif
+        // Run Query, set Array of Results so we can update our tableview
         NSArray *resultArray = [sqlAccess executeSQLiteSelectQuery:sqlCommand withError:&nerror];
         if (resultArray != NULL) {
             sqlRows = resultArray;
         }
     } else {
+        // No, some other command has been requested. Execute it and check result
         bool result = [sqlAccess executeSQLQuery:sqlCommand withError:&nerror];
+        
+        // Everything okay?
         if (!result) {
+            // No.
             NSLog(@"Could not execute: %@", sqlCommand);
         }
 #if DEBUG

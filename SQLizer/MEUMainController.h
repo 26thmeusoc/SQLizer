@@ -48,7 +48,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 
 /*!
- *
+ * Execute SQL Query
  */
 -(IBAction)inputField:(id)sender;
 @end
