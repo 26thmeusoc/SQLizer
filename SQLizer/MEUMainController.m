@@ -34,7 +34,9 @@
 -(id) tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)tableColumn
            row:(NSInteger)row {
-    return NULL;
+    NSString *result = [[[sqlRows objectAtIndex:row] contentsDictionary] valueForKey:[[tableColumn headerCell] stringValue]];
+    NSLog(@" Got %@", result);
+    return result;
 }
 
 
@@ -72,6 +74,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         NSArray *resultArray = [sqlAccess executeSQLiteSelectQuery:sqlCommand withError:&nerror];
         if (resultArray != NULL) {
             sqlRows = resultArray;
+            [self refreshTableView];
         }
     } else {
         // No, some other command has been requested. Execute it and check result
@@ -91,5 +94,33 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
     
     // Did everything work?
     
+}
+
+- (void)refreshTableView {
+    // How many columns are needed?
+    // Get a list of all columns currently shown
+    MEUSQLResultRow *exampleRow = [sqlRows objectAtIndex:0];
+    NSInteger columnNumber = [[sqlRows objectAtIndex:0] numberOfColumns];
+    NSArray *columns = [tableView tableColumns];
+    
+    // Remove all columns now. We will rebuild this contents.
+    for (NSUInteger i=1; i < [columns count]; i++) {
+        NSLog(@" Currently showing colunmns: %@, removing them now", columns);
+        [tableView removeTableColumn:[columns objectAtIndex:i]];
+    }
+    
+    // Create new columns
+    for (NSUInteger i = 0; i < columnNumber; i++) {
+        NSString *columnTitle = [[exampleRow resultHeader] objectAtIndex:i];
+        NSTableColumn *newColumn = [[NSTableColumn alloc] initWithIdentifier:columnTitle];
+        [[newColumn headerCell] setStringValue:columnTitle];
+        [tableView addTableColumn:newColumn];
+    }
+    
+    // Delete first column
+    if ([[[tableView tableColumns] objectAtIndex:0] isEqual:[columns objectAtIndex:0]]) {
+        [tableView removeTableColumn:[columns objectAtIndex:0]];
+    }
+    [tableView reloadData];
 }
 @end
