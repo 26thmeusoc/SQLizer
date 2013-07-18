@@ -26,6 +26,7 @@
  *
  * \since 0.1
  * \author Dirk "26thmeusoc" Braun
+ * \copyright GNU Public License v3
  */
 @interface MEUMainController : NSObject {
     IBOutlet NSTextField *textField;
