@@ -24,6 +24,10 @@
 
 /*!
  * Used to access a SQLite Database.
+ *
+ * \since 0.1
+ * \version 0.1.1
+ * \author Dirk "26thmeusoc" Braun
  */
 @interface MEUSQLAccess : NSObject {
     NSString *databasePath;
@@ -31,7 +35,7 @@
 
 /*!
  * Execute a SQL Query.
- * 
+ *
  * \todo Needs implementation
  *
  * \warning Do not use SQL SELECT Queries with in this method, as it won't return any Items.

@@ -50,10 +50,10 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 -(IBAction)inputField:(id)sender {
     NSError *nerror;
     
+    // TODO Do lines 55 & 57 in one step
     // Get Path to ~/Library/Appliction Support/
     NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror];
     // Get Path to ~/Library/Application Support/SQLizer
-    // TODO Do this in one step
     NSString *pathToDatabase = [[appSupportDir path] stringByAppendingString:@"/SQLizer/SQLizer.db"];
 #if DEBUG
     NSLog(@"Using Database: %@", pathToDatabase);

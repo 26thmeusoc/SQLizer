@@ -20,6 +20,12 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ * MEUSQLResultRow represenst a single Row of columns, returned by a SQL Select Query.
+ *
+ * \since 0.1
+ * \author Dirk "26thmeusoc" Braun
+ */
 @interface MEUSQLResultRow : NSObject {
     NSArray *columnsContent;
     NSArray *columnTitles;

@@ -21,6 +21,12 @@
 #import <Foundation/Foundation.h>
 #import "MEUSQLAccess.h"
 
+/*!
+ * MEUMainController controls UI Items in Main Window.
+ *
+ * \since 0.1
+ * \author Dirk "26thmeusoc" Braun
+ */
 @interface MEUMainController : NSObject {
     IBOutlet NSTextField *textField;
     IBOutlet NSTableView *tableView;

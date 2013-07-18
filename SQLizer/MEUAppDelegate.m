@@ -44,6 +44,7 @@
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+    // Exit Application after last Window has been Closed
     return YES;
 }
 @end
