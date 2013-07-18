@@ -1322,10 +1322,10 @@
 								<int key="NSCellFlags">-1805647871</int>
 								<int key="NSCellFlags2">272629760</int>
 								<string key="NSContents"/>
-								<object class="NSFont" key="NSSupport" id="227659563">
-									<string key="NSName">LucidaGrande</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">Menlo-Regular</string>
 									<double key="NSSize">13</double>
-									<int key="NSfFlags">1044</int>
+									<int key="NSfFlags">16</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="370713056"/>
@@ -1418,7 +1418,11 @@
 														<int key="NSCellFlags">337641536</int>
 														<int key="NSCellFlags2">2048</int>
 														<string key="NSContents">Text Cell</string>
-														<reference key="NSSupport" ref="227659563"/>
+														<object class="NSFont" key="NSSupport" id="227659563">
+															<string key="NSName">LucidaGrande</string>
+															<double key="NSSize">13</double>
+															<int key="NSfFlags">1044</int>
+														</object>
 														<reference key="NSControlView" ref="720190756"/>
 														<object class="NSColor" key="NSBackgroundColor" id="656236310">
 															<int key="NSColorSpace">6</int>
