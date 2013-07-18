@@ -35,7 +35,7 @@
 /*!
  * Fill TableView with Objects.
  *
- * \todo Requires Implementation
+ * \since 0.1
  *
  * \param aTableView NSTableView requesting Items
  * \param tableColumn Column requesting refreshed Items
@@ -48,11 +48,19 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 /*!
  * Return number of lines required in TableView
  * 
- * \todo Requires Implementation
+ * \since 0.1
  *
  * \param tableView TableView requesting number of Lines
  */
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
+
+/*!
+ * Refreshes Contents and columns of tableView.
+ * Make sure sqlRows has been refreshed befor calling refreshTableView
+ *
+ * \since 0.1
+ */
+- (void)refreshTableView;
 
 /*!
  * Execute SQL Query

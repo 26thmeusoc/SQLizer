@@ -26,7 +26,6 @@
  * Used to access a SQLite Database.
  *
  * \since 0.1
- * \version 0.1.1
  * \author Dirk "26thmeusoc" Braun
  */
 @interface MEUSQLAccess : NSObject {
@@ -35,6 +34,7 @@
 
 /*!
  * Execute a SQL Query.
+ *
  *
  * \todo Needs implementation
  *
@@ -67,6 +67,8 @@
 /*!
  * Initialises an MEUSSQLAccess Object with a given Path to Database
  *
+ * \since 0.1
+ *
  * \param pathToDatabase Path to a SQLite Database
  * \return Initalized MEUSQLAccess Object.
  */
@@ -75,7 +77,9 @@
 /*!
  * Execute a SQL Query
  *
+ * \since 0.1
  * \warning Do not use SQL SELECT Queries with this method, as it won't return any Items
+ *
  * \param sqlQuery
  * \param error
  * \return YES, if query was successfully executed, otherwise the function sets error and returns NO
@@ -85,6 +89,8 @@
 
 /*!
  * Execute a SQL Select Query. Returns a NSArray if Query could be executed, otherwise null and sets error
+ *
+ * \since 0.1
  * 
  * \param selectQuery Query to execute
  * \param error NSError Pointer, which will contarn Informations in case Query could not be executed

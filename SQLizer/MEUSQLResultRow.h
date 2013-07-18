@@ -35,6 +35,8 @@
 /*!
  * Creates a now MEUSQLResultRow Object with given columnTitles and Content.
  *
+ * \since 0.1
+ *
  * \param rowBlock A block of Rows returned by sqlite3 CLI Tool, which represents a single Databaserow
  * \return An initialized MEUSQLResultRow Object
  */
@@ -42,6 +44,8 @@
 
 /*!
  * Returns a list of all Columntitles of selected Rows.
+ *
+ * \since 0.1
  *
  * \return List of all Columntitles
  */
@@ -55,12 +59,16 @@
 /*!
  * Returns number of Columns.
  *
+ * \since 0.1
+ *
  * \return Number of Columns
  */
 - (NSUInteger) numberOfColumns;
 
 /*!
  * Returns a NSDictionary, containing all Elements of Databaserow
+ *
+ * \since 0.1
  *
  * \return Dictionaryobject of Databaserow Columns
  */
