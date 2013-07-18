@@ -28,11 +28,15 @@
     NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&nerror];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *pathToFolder = [[appSupportDir path] stringByAppendingString:@"/SQLizer"];
-    NSLog(@"Checking for %@", pathToFolder);
+#if DEBUG
+    NSLog(@"Checking for Appliction Support Folder at %@", pathToFolder);
+#endif
     BOOL isDir;
     BOOL result = [fileManager fileExistsAtPath:pathToFolder isDirectory:&isDir];
     if (result == FALSE ) {
+#if DEBUG
         NSLog(@"Application Supportfolder does not exist, creating one.");
+#endif
         NSError *error;
         [fileManager createDirectoryAtPath:pathToFolder withIntermediateDirectories:YES attributes:nil error:&error];
     }

@@ -86,7 +86,7 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
         // Everything okay?
         if (!result) {
             // No.
-            NSLog(@"Could not execute: %@", sqlCommand);
+            NSLog(@"Could not execute, showing error: %@", sqlCommand);
         }
 #if DEBUG
         else {
@@ -95,7 +95,8 @@ objectValueForTableColumn:(NSTableColumn *)tableColumn
 #endif
     }
     
-    // Did everything work?
+    //  Clear textField
+    [textField setStringValue:@""];
     
 }
 
