@@ -92,6 +92,27 @@
     return [task terminationStatus] == 0;
 }
 
+/*!
+ * Generate an Array of MEUSQLResultrows from sqlite3 CLI-Tool Result. Result must be generated using -line option
+ *
+ * \param resultText Text returned by sqlite3
+ * \return Array of MEUSQLResultRow Objects, containing results in resultText
+ */
+- (NSArray *) generateArrayOfRows:(NSString *)resultText {
+    // Separate Database Lines
+    NSArray *sqlResultRows = [resultText componentsSeparatedByString:@"\n\n"];
+    // Create a Buffer
+    NSMutableArray *lineBuffer = [[NSMutableArray alloc] initWithCapacity:1];
+#if DEBUG
+    NSLog(@"Got %lu rows",[sqlResultRows count]);
+#endif
+    // Create a MEUSQLResultRow Object for each row
+    for (NSUInteger i = 0; i < [sqlResultRows count]; i++) {
+        [lineBuffer addObject:[[MEUSQLResultRow alloc] resultRowWithRowBlock:[sqlResultRows objectAtIndex:i]]];
+    }
+    return  [NSArray arrayWithArray:lineBuffer];
+}
+
 - (NSArray *) executeSQLiteSelectQuery:(NSString *)selectQuery
                              withError:(NSError **)error {
     NSTask *task = [[NSTask alloc] init];
@@ -140,27 +161,6 @@
         return NULL;
     }
     return [self generateArrayOfRows:[[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding]];
-}
-
-/*!
- * Generate an Array of MEUSQLResultrows from sqlite3 CLI-Tool Result. Result must be generated using -line option
- *
- * \param resultText Text returned by sqlite3
- * \return Array of MEUSQLResultRow Objects, containing results in resultText
- */
-- (NSArray *) generateArrayOfRows:(NSString *)resultText {
-    // Separate Database Lines
-    NSArray *sqlResultRows = [resultText componentsSeparatedByString:@"\n\n"];
-    // Create a Buffer
-    NSMutableArray *lineBuffer = [[NSMutableArray alloc] initWithCapacity:1];
-#if DEBUG
-    NSLog(@"Got %lu rows",[sqlResultRows count]);
-#endif
-    // Create a MEUSQLResultRow Object for each row
-    for (NSUInteger i = 0; i < [sqlResultRows count]; i++) {
-        [lineBuffer addObject:[[MEUSQLResultRow alloc] resultRowWithRowBlock:[sqlResultRows objectAtIndex:i]]];
-    }
-    return  [NSArray arrayWithArray:lineBuffer];
 }
 
 @end
