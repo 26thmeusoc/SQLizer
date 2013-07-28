@@ -10,7 +10,7 @@ SQLizer should build easiest, using Xcode, you can use every Xcode starting with
 [10.6 Compability/Building with Snow Leopard]
 SQLizer is intended to Run on Systems >= 10.6 (Snow Leopard), as it contains the First Objective-C Version with Garage Collection.
 
-I am programming SQLizer mainly on 10.8, but enabled compabilty for 10.6 Xcode.
+I am programming SQLizer mainly on 10.8, and enabled compabilty for 10.6 Xcode.
 
 If you want to use Xcode on 10.6 on there you need to make following in Project Settings in Order to fix some error and warning messages (since Apple also does some Definitions in newer Cocoa Versions, you may not fix al of them, but SQLizer will work anyway):
 	* Set Base SDK to 10.6
